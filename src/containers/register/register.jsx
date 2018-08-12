@@ -49,7 +49,6 @@ export default class Register extends Component {
                             老板
                         </Radio>
                     </List.Item>
-
                 </List>
             </WingBlank>
             <br/>
