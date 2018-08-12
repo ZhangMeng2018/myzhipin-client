@@ -1,9 +1,65 @@
 import React,{Component} from "react"
+import {
+    NavBar,
+    WingBlank,
+    List,
+    InputItem,
+    WhiteSpace,
+    Radio,
+    Button
+} from 'antd-mobile'
+
+import Logo from '../../components/logo/logo'
 
 export default class Register extends Component {
+    state = {
+        username: '',
+        password: '',
+        rePassword: '',
+        type: 'dashen'
+    };
+    handelChange = (key,val) =>{
+        this.setState({
+        [key]:val
+        })
+    };
+    register = () =>{
+        console.log(this.state)
+    };
+    toLogin = () =>{
+      this.props.history.replace('/login')
+    };
     render(){
         return <div>
-            Register
+            <NavBar>张萌直聘</NavBar>
+            <Logo />
+            <WingBlank>
+                <List>
+                    <InputItem  placeholder='请输入用户名' onChange={val => this.handelChange('username',val)}>用户名:</InputItem>
+                    <WhiteSpace/>
+                    <InputItem  placeholder='请输入密码' onChange={val => this.handelChange('password',val)}>密码:</InputItem>
+                    <WhiteSpace/>
+                    <InputItem  placeholder='请确认密码' onChange={val => this.handelChange('rePassword',val)}>确认密码:</InputItem>
+                    <List.Item>
+                        <span>用户类型：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <Radio checked={this.state.type === 'dashen'} onChange={() => this.handelChange('type','dashen')}>
+                            大神
+                        </Radio>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <Radio checked={this.state.type === 'laoban'} onChange={() => this.handelChange('type','laoban')}>
+                            老板
+                        </Radio>
+                    </List.Item>
+
+                </List>
+            </WingBlank>
+            <br/>
+            <WingBlank>
+                <List>
+                    <Button type='primary' onClick={this.register}>注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册</Button>
+                    <WhiteSpace/>
+                    <Button onClick={this.toLogin}>已有账户</Button>
+                </List>
+            </WingBlank>
         </div>
     }
 }
