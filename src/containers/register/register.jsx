@@ -8,10 +8,13 @@ import {
     Radio,
     Button
 } from 'antd-mobile'
+import {connect} from 'react-redux'
+import {Redirect} from 'react-router-dom'
 
 import Logo from '../../components/logo/logo'
+import {register} from '../../redux/actions'
 
-export default class Register extends Component {
+class Register extends Component {
     state = {
         username: '',
         password: '',
@@ -24,17 +27,25 @@ export default class Register extends Component {
         })
     };
     register = () =>{
-        console.log(this.state)
+      this.props.register(this.state)
     };
     toLogin = () =>{
       this.props.history.replace('/login')
     };
     render(){
+         const {redirectTo, msg} = this.props;
+         if (redirectTo) {
+         return <Redirect to={redirectTo}/>
+         }
         return <div>
-            <NavBar>张萌直聘</NavBar>
+            <NavBar>直聘</NavBar>
             <Logo />
             <WingBlank>
                 <List>
+                    {msg?<List.Item>
+                        {msg}
+                    </List.Item>:''
+                    }
                     <InputItem  placeholder='请输入用户名' onChange={val => this.handelChange('username',val)}>用户名:</InputItem>
                     <WhiteSpace/>
                     <InputItem  placeholder='请输入密码' onChange={val => this.handelChange('password',val)}>密码:</InputItem>
@@ -55,10 +66,17 @@ export default class Register extends Component {
             <WingBlank>
                 <List>
                     <Button type='primary' onClick={this.register}>注&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;册</Button>
-                    <WhiteSpace/>
+                </List>
+                <br/>
+                <List>
                     <Button onClick={this.toLogin}>已有账户</Button>
                 </List>
             </WingBlank>
         </div>
     }
 }
+
+export default connect(
+  state =>state.userReducer
+  ,{register}
+)(Register)

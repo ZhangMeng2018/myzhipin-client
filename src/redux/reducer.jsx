@@ -1,16 +1,26 @@
 import {combineReducers} from 'redux'
+import {AUTH_SUCCESS,ERROR_MSG} from './action-types'
 
-xxxState = {
-    name: 'tom'
+const userState = {
+    username: '',
+    type:'',
+    errMsg:'',
+    redirectTo:''
 };
-yyyState = {
-    name: 'jack'
-};
-function xxx(state = xxxState,action) {
-
+function userReducer(state = userState,action) {
+    switch (action.type){
+      case AUTH_SUCCESS:
+        return {...action.data,redirectTo:'/'};
+      case ERROR_MSG:
+        return {msg:action.data};
+      default:
+        return state
+    }
 }
-function yyy(state = yyyState,action) {
 
+function xxxReducer(state = userState,action) {
+  return  {}
 }
 
-export default combineReducers({xxx,yyy})
+
+export default combineReducers({userReducer,xxxReducer})
