@@ -12,7 +12,7 @@ import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
 
 import Logo from '../../components/logo/logo'
-import {register} from '../../redux/actions'
+import {register,retError} from '../../redux/actions'
 
 class Register extends Component {
     state = {
@@ -30,10 +30,11 @@ class Register extends Component {
       this.props.register(this.state)
     };
     toLogin = () =>{
-      this.props.history.replace('/login')
+        this.props.retError();
+        this.props.history.replace('/login')
     };
     render(){
-         const {redirectTo, msg} = this.props;
+         const {redirectTo, msg} = this.props.user;
          if (redirectTo) {
          return <Redirect to={redirectTo}/>
          }
@@ -43,7 +44,7 @@ class Register extends Component {
             <WingBlank>
                 <List>
                     {msg?<List.Item>
-                        {msg}
+                      <p className='errorMsg'>{msg}</p>
                     </List.Item>:''
                     }
                     <InputItem  placeholder='请输入用户名' onChange={val => this.handelChange('username',val)}>用户名:</InputItem>
@@ -77,6 +78,6 @@ class Register extends Component {
 }
 
 export default connect(
-  state =>state.userReducer
-  ,{register}
+  state => ({user:state.userReducer})
+  ,{register,retError}
 )(Register)

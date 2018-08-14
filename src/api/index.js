@@ -8,3 +8,7 @@ import ajax from './ajax'
 export const reqRegister = (user) => ajax('/register', user, 'POST');
 // 请求登陆
 export const reqLogin = (user) => ajax('/login', user, 'POST');
+
+export const reUpdateUser = (userInfo) => ajax('/updateUser', userInfo, 'POST');
+
+export const reqUser = (user) => ajax('/user');
