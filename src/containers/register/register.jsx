@@ -10,9 +10,10 @@ import {
 } from 'antd-mobile'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 import Logo from '../../components/logo/logo'
-import {register,retError} from '../../redux/actions'
+import {register,retError,getUser} from '../../redux/actions'
 
 class Register extends Component {
     state = {
@@ -21,13 +22,21 @@ class Register extends Component {
         rePassword: '',
         type: 'dashen'
     };
+
+    componentDidMount() {
+        const userid = Cookies.get('userid');
+        const {user} = this.props;
+        if (userid && !user._id) {
+          this.props.getUser();
+        }
+    }
     handelChange = (key,val) =>{
         this.setState({
         [key]:val
         })
     };
     register = () =>{
-      this.props.register(this.state)
+        this.props.register(this.state)
     };
     toLogin = () =>{
         this.props.retError();
@@ -79,5 +88,5 @@ class Register extends Component {
 
 export default connect(
   state => ({user:state.userReducer})
-  ,{register,retError}
+  ,{register,retError,getUser}
 )(Register)

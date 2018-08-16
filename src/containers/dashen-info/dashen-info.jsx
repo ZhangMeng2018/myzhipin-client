@@ -1,6 +1,7 @@
 import React,{Component} from "react"
 import {connect} from 'react-redux'
 import {NavBar, InputItem, TextareaItem, Button} from 'antd-mobile'
+import {Redirect} from 'react-router-dom'
 
 import {updateUser} from  "../../redux/actions";
 import HeaderSelector from '../../components/header-selector/header-selector'
@@ -13,10 +14,12 @@ class DashenInfo extends Component{
   };
   handleChange = (key,val) => this.setState({[key]:val});
   setHeader = (header) => {
-    this.setState({header})
+    this.setState({header});
   };
 
   render(){
+    const user = this.props.user;
+    if(user.header) return <Redirect to = '/dashen'/>;
     return <div>
               <NavBar>大神信息完善</NavBar>
               <HeaderSelector setHeader={this.setHeader}/>

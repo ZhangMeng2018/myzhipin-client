@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux'
 
 import getRedirectPath from '../utils/getRedirectPath'
-import {RETERROR,AUTH_SUCCESS,ERROR_MSG,RESET_USER,RECEIV_EUSER} from './action-types'
+import {RETERROR,AUTH_SUCCESS,ERROR_MSG,RESET_USER,RECEIV_EUSER,RECEIVE_USERLIST,USERLIST_ERR} from './action-types'
 
 const userState = {
     username: '',
@@ -9,6 +9,7 @@ const userState = {
     errMsg:'',
     redirectTo:''
 };
+const initUserList = [];
 function userReducer(state = userState,action) {
     switch (action.type){
       case AUTH_SUCCESS:
@@ -29,9 +30,16 @@ function userReducer(state = userState,action) {
     }
 }
 
-function xxxReducer(state = userState,action) {
-  return  {}
+function userList(state = initUserList,action) {
+  switch (action.type) {
+    case RECEIVE_USERLIST:
+      return action.data;
+    case USERLIST_ERR:
+      state.msg = action.data;
+      return state;
+    default:
+      return state
+  }
 }
 
-
-export default combineReducers({userReducer,xxxReducer})
+export default combineReducers({userReducer,userList})

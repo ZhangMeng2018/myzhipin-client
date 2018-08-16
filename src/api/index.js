@@ -12,3 +12,5 @@ export const reqLogin = (user) => ajax('/login', user, 'POST');
 export const reUpdateUser = (userInfo) => ajax('/updateUser', userInfo, 'POST');
 
 export const reqUser = (user) => ajax('/user');
+
+export const reqUserList = (type) => ajax('/userList',type);

@@ -9,15 +9,24 @@ import {
 } from 'antd-mobile'
 import {connect} from 'react-redux'
 import {Redirect} from 'react-router-dom'
+import Cookies from 'js-cookie'
 
 import Logo from '../../components/logo/logo'
-import {login,retError} from '../../redux/actions'
+import {login,retError,getUser} from '../../redux/actions'
 
 class Login extends Component {
   state = {
     username: '',
     password: '',
   };
+  componentDidMount() {
+    const userid = Cookies.get('userid');
+    const {user} = this.props;
+    if (userid && !user._id) {
+      this.props.getUser();
+    }
+  }
+
   handelChange = (key,val) =>{
     this.setState({
       [key]:val
@@ -65,5 +74,5 @@ class Login extends Component {
 
 export default connect(
   state => ({user:state.userReducer}),
-  {login,retError}
+  {login,retError,getUser}
 )(Login)
