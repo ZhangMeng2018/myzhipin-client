@@ -13,6 +13,7 @@ import Dashen from '../dashen/dashen'
 import Laoban from '../laoban/laoban'
 import Message from '../message/message'
 import Personal from '../personal/personal';
+import Chat from '../chat/chat';
 import NavFooter from '../../components/nav-footer/nav-footer'
 import NotFound from '../../components/not-found/not-found'
 
@@ -88,7 +89,9 @@ class Main extends Component {
                      <Route path='/message' component={Message}/>
                      <Route path='/personal' component={Personal}/>
 
-                    <Route component={NotFound}/>
+                     <Route path='/chat/:userid' component={Chat}/>
+
+                     <Route component={NotFound}/>
 
                  </Switch>
                 {currentNav ? <NavFooter unReadCount={this.props.unReadCount} navList={this.navList}/> : null}

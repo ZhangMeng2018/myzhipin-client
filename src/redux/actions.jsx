@@ -87,7 +87,8 @@ export function getUserList(type) {
     const res = await reqUserList(type);
     const result = res.data;
     if(!result.code){
-      dispatch(receiveUserList(result.data))
+      const userList = result.data.filter(user => user.header);
+      dispatch(receiveUserList(userList))
     }else {
       dispatch(userlistErr(result.msg))
     }
