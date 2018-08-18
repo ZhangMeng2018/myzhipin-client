@@ -54,6 +54,7 @@ class Main extends Component {
       if (userid && !user._id) {
         this.props.getUser();
       }
+      console.log(this.props.unReadCount)
     }
     render(){
         const userid = Cookies.get('userid');
@@ -100,6 +101,6 @@ class Main extends Component {
 }
 
 export default connect(
-  state => ({user:state.userReducer}),
+  state => ({user:state.userReducer,unReadCount:state.chat.unReadCount}),
   {getUser}
 )(Main)

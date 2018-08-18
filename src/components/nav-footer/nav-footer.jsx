@@ -18,6 +18,7 @@ class NavFooter extends Component {
                   navList.map((nav, index) => (
                     <Item key={nav.path}
                           title={nav.text}
+                          badge={nav.path==='/message' ? this.props.unReadCount : 0}
                           icon={{uri: require(`../images/nav/${nav.icon}.png`)}}
                           selectedIcon={{uri: require(`../images/nav/${nav.icon}-selected.png`)}}
                           selected={pathname === nav.path}

@@ -14,3 +14,7 @@ export const reUpdateUser = (userInfo) => ajax('/updateUser', userInfo, 'POST');
 export const reqUser = (user) => ajax('/user');
 
 export const reqUserList = (type) => ajax('/userList',type);
+
+export const reqChatMsgList = () => ajax('/msglist');
+
+export const reqReadMsg = (from) => ajax('/readmsg',from,'POST');
